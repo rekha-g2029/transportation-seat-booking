@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}College Transit{% endblock %}</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body><header class="topbar"><a class="brand" href="{{ url_for('index') }}">🚌 College Transit</a><nav>
+<a href="{{ url_for('index') }}">Trips</a>
+{% if current_user %}<a href="{{ url_for('my_bookings') }}">My bookings</a>{% if current_role=='admin' %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}<span class="welcome">{{ current_user }}</span><a class="navbutton" href="{{ url_for('logout') }}">Log out</a>
+{% else %}<a href="{{ url_for('login') }}">Log in</a><a class="navbutton" href="{{ url_for('register') }}">Register</a>{% endif %}
+</nav></header><main class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="messages">{% for category,message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block content %}{% endblock %}</main><footer>College Transportation Seat Booking System · Academic project starter</footer></body></html>
