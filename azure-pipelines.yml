@@ -1,0 +1,22 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: ArchiveFiles@2
+    displayName: 'Package website files'
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/website.zip'
+      replaceExistingArchive: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish website artifact'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/website.zip'
+      ArtifactName: 'website'
+      publishLocation: 'Container'
